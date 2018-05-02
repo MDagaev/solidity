@@ -16,7 +16,7 @@ contract ZombieFactory {
     Zombie[] public zombies;
     
     // У7 Функции
-    function createZombie (string _name, uint _dna){
+    function _createZombie (string _name, uint _dna) private {
         zombies.push(Zombie(_name, _dna)); //У8 работа с струк-и и фун-и (Создаем нового Zombie(_name, _dna) и Добавляем push в массив zombies)
         
     }
