@@ -14,5 +14,10 @@ contract ZombieFactory {
     
     // Массивы набор переменных Одного типа, бываю Фиксированные [5] и Переменные [] 
     Zombie[] public zombies;
+    
+    // Функции
+    function createZombie (string _name, uint _dna){
+        
+    }
 
 }
