@@ -2,23 +2,31 @@ pragma solidity ^0.4.19;
 
 contract ZombieFactory {
 
-    // У4 переменные
+    event NewZombie(uint zombieId, string name, uint dna);
+
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
-    
-    // У5 Структуры набор переменных Разных типов
+
     struct Zombie {
         string name;
         uint dna;
     }
-    
-    // У6 Массивы набор переменных Одного типа, бываю Фиксированные [5] и Переменные [], privat, public 
+
     Zombie[] public zombies;
-    
-    // У7 Функции
-    function _createZombie (string _name, uint _dna) private {
-        zombies.push(Zombie(_name, _dna)); //У8 работа с струк-и и фун-и (Создаем нового Zombie(_name, _dna) и Добавляем push в массив zombies)
-        
+
+    function _createZombie(string _name, uint _dna) private {
+        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        NewZombie(id, _name, _dna);
+    } 
+
+    function _generateRandomDna(string _str) private view returns (uint) {
+        uint rand = uint(keccak256(_str));
+        return rand % dnaModulus;
+    }
+
+    function createRandomZombie(string _name) public {
+        uint randDna = _generateRandomDna(_name);
+        _createZombie(_name, randDna);
     }
 
 }
